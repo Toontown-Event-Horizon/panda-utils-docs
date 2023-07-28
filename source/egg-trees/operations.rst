@@ -46,8 +46,12 @@ can be easily transformed into the following node:
 This path can include the ``..`` symbol if needed, it also does not check the validity of the path at all,
 so be careful. All textures will be updated at the same time, even those that point to a different folder.
 So if your model is supposed to have textures at both ``phase_1/maps/image.png``
-and ``phase_2/maps/map-folder/image2.png``
-you are out of luck for now (although you can write a similar step yourself).
+and ``phase_2/maps/map-folder/image2.png`` you are out of luck.
+However, if your model has textures at ``phase_1/maps/image.png`` and ``phase_1/maps/subfolder/image2.png``
+you can use this step to set the texture prefix to ``phase_1/maps``.
+In order for that to work, the second texture path needs to be already set to the correct path
+(can be done through manual <Texture> manipulation).
+In general, any path that already starts with the texture prefix and does not have ``..`` in it will not be changed.
 
 .. code-block:: python
 

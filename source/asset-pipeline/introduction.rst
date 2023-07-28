@@ -34,6 +34,11 @@ The asset pipeline expects your workspace folder to have the following directory
    │  │  ├─ model.blend
    │  │  ├─ texture.png
    │  │  ├─ texture2.png
+   common/
+   ├─ group1/
+   │  ├─ texture.png
+   │  ├─ ...
+   ├─ ...
    intermediate/
    built/
    ├─ phase_1/
@@ -72,6 +77,7 @@ Some notes about this structure:
   into the game assets folder directly. It can be deleted, forcing the models to be recompiled.
   We recommend gitignoring it and/or adding a submodule in the same place.
 * The scripts folder is optional. It is used here: :doc:`scripting`
+* The common folder is optional. It is used here: :doc:`misc`
 
 Running asset pipeline
 ----------------------

@@ -19,12 +19,16 @@ This step will do the following transformations to every EGG model it finds:
 Arguments
 ~~~~~~~~~
 
-This step takes no arguments.
+This step takes up to one argument.
+
+* ``map_textures``: default true. If this is set to ``0``, ``false`` or empty string,
+  textures will not be renamed, in case the model already has a naming pattern set.
 
 Example
 ~~~~~~~
 
 * ``optimize``
+* ``optimize:0``
 
 Optchar
 -------

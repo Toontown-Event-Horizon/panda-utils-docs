@@ -6,10 +6,50 @@ The general step sequence that imports a 3D model should look like this:
 
 .. code-block:: console
 
-   $ assetpipeline {either preblend or blendrename} blend2bam bam2egg {optimization process here} egg2bam
+   $ assetpipeline {preexport} {export} {optimization process here} egg2bam
+
+* ``preexport`` - either ``preblend`` (if the model is made in a software other than blender)
+  or ``blendrename`` (if the model is made in Blender). ``blendrename`` may be omitted, but it's not recommended.
+* ``export`` - either ``blend2bam bam2egg`` or ``yabee``. Since YABEE is not supported by the Panda3D devs,
+  it is not recommended, but still can be used in case the model is a character and is not recognized by Blend2bam.
 
 Any step sequence that outputs a game model (3D or 2D) should end with ``egg2bam`` since that is
 the step that copies assets into the built folder as well.
+
+Model exporting information
+---------------------------
+
+Panda3D's models can be exported through a multitude of scripts:
+
+* `Blend2bam <https://github.com/Moguri/blend2bam>`_;
+* `Panda3D GLTF <https://github.com/Moguri/panda3d-gltf>`_;
+* The outdated tools ``dxf2egg``, ``flt2egg``, ``lwo2egg``, ``obj2egg``, ``vrml2egg``, ``x2egg``,
+  ``dae2egg``, ``maya2egg``, ``maxegg``;
+* `Assimp <https://assimp-docs.readthedocs.io/en/latest/about/introduction.html>`_;
+* `YABEE <https://github.com/09th/YABEE>`_;
+* `Boterham <https://pypi.org/project/panda3d-boterham/>`_.
+
+The use of Assimp is against our philosophy, and the outdated tools are well, not supported.
+So there are four main options.
+
+* Blend2Bam was the default method since 1.0.0, however we do not recommend using it as it does not work
+  with the texture path modification script on Windows.
+* Exporting blend file to gltf followed by gltf2bam is the default method since 1.4.0. It is mostly the same
+  as blend2bam except it does not have the issue outlined above.
+* YABEE is an experimental method available since 1.4.1. It is less supported than Blend2bam, but can be
+  used in cases where Blend2bam fails. The main fundamental difference between YABEE and Blend2bam is
+  the fact that Blend2bam exports a scene directly as Panda3D sees it, while YABEE parses the blend file
+  and writes out Egg polygons, ignoring the Panda3D's vision of this model. Because of that, YABEE
+  can fix various issues that happen when exporting actors not parented to their armature.
+  YABEE is also useful when exporting animations, as it allows splitting multiple animations in
+  one Blend file, however animation exporting is not currently implemented.
+* Boterham and exporting GLTF models (bypassing Blend files) are currently not supported.
+
+Note that the recent versions of Blender do not support the old versions of YABEE.
+We recommend using `our fork <https://github.com/Toontown-Event-Horizon/YABEE>`_ to export through YABEE.
+Do note that the old versions will not work when installed and enabled, even if YABEE exporter itself
+is not used in the pipeline. This is because Blender will crash after closing on some versions,
+and pipeline will recognize it as an exporting error (even though it isn't one).
 
 Preblend
 --------
@@ -30,11 +70,11 @@ Examples
 * ``preblend``
 
 BlendRename
---------
+-----------
 
 This step will rename the BLEND models into their proper name.
-It is required if the input files are in BLEND format,
-but not required if the Blend files are generated through Preblend.
+It is strongly recommended if the input files are in BLEND format,
+but has no effect if the Blend files are generated through Preblend.
 
 Arguments
 ~~~~~~~~~
@@ -72,9 +112,6 @@ zero or more comma-separated flags from the following list:
 
 For other Toontown developers: we use no flags while exporting, but you might want ``legacy`` on some sources.
 
-Model exports through other means (YABEE, Blend2bam's Egg pipeline, Boterham)
-are currently not implemented, but are considered for use in the future.
-
 Examples
 ~~~~~~~~
 
@@ -97,6 +134,22 @@ Examples
 
 * ``bam2egg``
 
+YABEE
+-----
+
+This step uses YABEE to export BLEND models directly into EGG models. It is run on each model separately,
+meaning there will be as many EGG models as there were BLEND models.
+
+Arguments
+~~~~~~~~~
+
+This step takes no arguments.
+
+Examples
+~~~~~~~~
+
+* ``yabee``
+
 Egg2Bam
 -------
 
@@ -107,9 +160,14 @@ into the ``built`` folder.
 Arguments
 ~~~~~~~~~
 
-This step takes no arguments.
+This step takes up to one argument:
+
+* ``all_textures``: default false. If it is set to non-false value (false values are false, 0, and empty string),
+  all textures in the folder (with the exception of cts-injected ones) will be copied into ``built``, by default
+  only the textures referenced in the egg file are copied.
 
 Examples
 ~~~~~~~~
 
 * ``egg2bam``
+* ``egg2bam:1``

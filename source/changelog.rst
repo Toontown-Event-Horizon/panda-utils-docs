@@ -5,6 +5,22 @@ Breaking changes are displayed with the 💥 collision symbol.
 
 Versions were not saved before 1.0, so those are not in the changelog.
 
+1.4.1
+-----
+
+Asset Pipeline
+~~~~~~~~~~~~~~
+
+* Added YABEE Export step - Wizzerinus
+* Added Common Texture Set step - Wizzerinus
+* Optimize step may have its texture remapping operation disabled - Wizzerinus
+* Egg2Bam step may now optionally copy all textures instead of linked textures - Wizzerinus
+
+Egg Tree
+~~~~~~~~
+
+* ``set_texture_prefix`` will no longer affect textures that start with the prefix - Wizzerinus
+
 1.4.0
 -----
 
