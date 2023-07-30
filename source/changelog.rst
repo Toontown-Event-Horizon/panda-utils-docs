@@ -5,6 +5,16 @@ Breaking changes are displayed with the 💥 collision symbol.
 
 Versions were not saved before 1.0, so those are not in the changelog.
 
+1.4.2
+-----
+
+Asset Pipeline
+~~~~~~~~~~~~~~
+
+* 💥 Common Texture Set now only accepts one argument - Wizzerinus
+* 💥 Egg2Bam step no longer copies textures injected through Common Texture Set - Wizzerinus
+* Egg2Bam with all_textures set to true will now respect the texture paths in egg file - Wizzerinus
+
 1.4.1
 -----
 
