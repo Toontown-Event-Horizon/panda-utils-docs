@@ -5,6 +5,32 @@ Breaking changes are displayed with the 💥 collision symbol.
 
 Versions were not saved before 1.0, so those are not in the changelog.
 
+1.5
+---
+
+Asset Pipeline
+~~~~~~~~~~~~~~
+
+* 💥 The YABEE step now requires TTEVH's fork of YABEE
+* The YABEE step can now export animations - Wizzerinus
+
+1.4.4
+-----
+
+Asset Pipeline
+~~~~~~~~~~~~~~
+
+* Palette generation can now skip images on demand - Wizzerinus
+* Optimize step will no longer rename palettes - Wizzerinus
+
+1.4.3
+-----
+
+Asset Pipeline
+~~~~~~~~~~~~~~
+
+* Use Pathlib in pipeline to improve windows compatibility - Wizzerinus
+
 1.4.2
 -----
 

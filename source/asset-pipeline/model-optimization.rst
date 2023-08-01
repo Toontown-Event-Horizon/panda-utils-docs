@@ -13,6 +13,7 @@ This step will do the following transformations to every EGG model it finds:
   For example, if textures ``file1.png``, ``Randomfile.jpg`` and ``otherFile.png`` are provided,
   they will be renamed into ``input_folder.png``, ``input_folder-1.jpg`` and ``input_folder-2.png``
   (the order is not guaranteed, but it will be consistent if this step is launched on multiple machines).
+  It will not rename textures made from palettes (including palettize step and egg-palettize).
 
 (more to come)
 
@@ -74,6 +75,9 @@ This step takes two parameters.
 
   * ``ordered`` - if the palettized images were named ``{number}-{name}``,
     changes the palettized node name to ``name``. Primarily used with ``texture-cards`` stage.
+* ``exclusions`` - optional, list of strings (can be joined together by commas ``,``). Default empty.
+  The images with the same name of an exclusion will not be added into the palette. If this argument is used,
+  it is recommended to put palettize step before optimize step to not have to do guesswork for the image names.
 
 Example
 ~~~~~~~
@@ -81,3 +85,4 @@ Example
 * ``palettize``
 * ``palettize:2048``
 * ``palettize:512:ordered``
+* ``palettize:1024::ExcludeThisImage.png``

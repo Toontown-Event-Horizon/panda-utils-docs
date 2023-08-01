@@ -47,9 +47,7 @@ So there are four main options.
 
 Note that the recent versions of Blender do not support the old versions of YABEE.
 We recommend using `our fork <https://github.com/Toontown-Event-Horizon/YABEE>`_ to export through YABEE.
-Do note that the old versions will not work when installed and enabled, even if YABEE exporter itself
-is not used in the pipeline. This is because Blender will crash after closing on some versions,
-and pipeline will recognize it as an exporting error (even though it isn't one).
+This is required since 1.5b1 due to changes made to allow exporting animations.
 
 Preblend
 --------
@@ -139,16 +137,21 @@ YABEE
 
 This step uses YABEE to export BLEND models directly into EGG models. It is run on each model separately,
 meaning there will be as many EGG models as there were BLEND models.
+It can also export animations from Blender actions. The animations will be exported as separate files.
 
 Arguments
 ~~~~~~~~~
 
-This step takes no arguments.
+This step can be run either without arguments or with keyword arguments.
+
+Every keyword argument ``key: value`` will export the Blender Action ``value`` as an animation with the name ``key``.
+The animation will be saved into ``{phase}/models/{category}/{modelName}-{key}.bam``.
 
 Examples
 ~~~~~~~~
 
 * ``yabee``
+* ``yabee[]``
 
 Egg2Bam
 -------
