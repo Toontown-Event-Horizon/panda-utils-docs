@@ -11,8 +11,14 @@ Versions were not saved before 1.0, so those are not in the changelog.
 Asset Pipeline
 ~~~~~~~~~~~~~~
 
-* 💥 The YABEE step now requires TTEVH's fork of YABEE
-* The YABEE step can now export animations - Wizzerinus
+* 💥 The YABEE step now requires TTEVH's fork of YABEE (1.5b1)
+* The YABEE step can now export animations - Wizzerinus (1.5b1)
+* 💥 The Optchar step will now export only the model whose name matches the name of the folder - Wizzerinus (1.5b2)
+
+Egg Tree
+~~~~~~~~
+
+* Better compatibility with models exported through YABEE - Wizzerinus (1.5b2)
 
 1.4.4
 -----
