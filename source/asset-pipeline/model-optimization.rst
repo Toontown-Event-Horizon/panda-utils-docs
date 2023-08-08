@@ -59,11 +59,6 @@ Palettize
 This step is used to join multiple texture files on a model into one palette.
 It will palettize every EGG model in the folder.
 
-.. warning:: There is currently a bug that using this step overwrites the textures
-   which were not added to any palette. This seems to be a Panda3D issue.
-   If you encounter missing textures, remove palettize from the pipeline for that model.
-   It usually happens when the textures are larger than half palette width.
-
 Arguments
 ~~~~~~~~~
 

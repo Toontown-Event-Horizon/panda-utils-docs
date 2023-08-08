@@ -14,6 +14,8 @@ Asset Pipeline
 * 💥 The YABEE step now requires TTEVH's fork of YABEE (1.5b1)
 * The YABEE step can now export animations - Wizzerinus (1.5b1)
 * 💥 The Optchar step will now export only the model whose name matches the name of the folder - Wizzerinus (1.5b2)
+* Fixed Transparency step breaking already transparent textures - Wizzerinus (1.5b3)
+* Fixed Palettize step deleting textures that did not fit the palette - Wizzerinus (1.5b3)
 
 Egg Tree
 ~~~~~~~~
