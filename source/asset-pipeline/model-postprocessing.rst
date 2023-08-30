@@ -158,3 +158,21 @@ Examples
 ~~~~~~~~
 
 * ``transparent``
+
+Delete Vertex Colors
+--------------------
+
+This step removes vertex colors from all vertices in the model.
+This can be used when the vertex colors are exported incorrectly from Blender.
+A common case is the model being invisible, but having wireframe while loaded in PView
+(wireframe can be toggled by pressing ``w``).
+
+Arguments
+~~~~~~~~~
+
+This step takes no arguments.
+
+Examples
+~~~~~~~~
+
+* ``delete_vertex_colors``

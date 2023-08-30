@@ -20,47 +20,22 @@ Panda Utils is fairly opinionated, based on our experience with the Toontown sou
   (current working directory).
 * We do not join palettes of multiple different models together. Doing so may reduce the project size
   in some cases.
-* The tool enforces a certain structure on the ``resources`` folder of your project.
-  It is relatively flexible, but may not be desired in some cases. The structure looks like this
-  (the top-level folders do not have to be named ``phase_N`` and can have any name):
-
-.. code-block::
-
-   resources/
-   ├─ phase_1/
-   │  ├─ models/
-   │  │  ├─ category/
-   │  │  |  ├─ asset-name.bam
-   │  │  |  ├─ other-asset.bam
-   │  │  |  ├─ ...
-   │  ├─ maps/
-   │  │  ├─ asset-name.png
-   │  │  ├─ asset-name-1.png
-   │  │  ├─ asset-name-2.png
-   │  │  ├─ other-asset.png
-   │  │  ├─ ...
-   ├─ phase_2/
-   │  ├─ models/
-   │  │  ├─ ...
-   │  ├─ maps/
-   │  │  ├─ ...
-   ├─ ...
-
 * We usually use semi-absolute texture paths (i.e. ``phase_1/maps/asset-name.png``) instead of model-relative
   (i.e. ``../../maps/asset-name.png``). This requires proper Panda3D configurtion and also does not allow copying
   models around between phases.
 
 
 .. warning:: The Egg syntax tree module does not guarantee the validity of the Egg file after any operation.
+   The model is guaranteed to be syntactically correct, but may be semantically incorrect.
    For example, you can insert a node with an invalid name into the tree, or insert a ``<Collide>`` node
-   into a group with non-polygon objects under it. If you don't do those, the model should be usable.
+   into a group with non-polygon objects under it.
    It also may reject valid egg files built with a non-standard generator
    (generators like bam2egg or panda-utils itself are safe).
 
 Panda Utils requires at least Python 3.8 and a reasonably contemporary version of Panda3D.
 
-.. warning:: Panda Utils is not compatible with Panda3D 1.10.13. This is due to some change in the
-   Panda's compilation process which broke Egg-Trans tool actively used inside Panda Utils. You can
+.. warning:: Panda Utils is not compatible with Panda3D 1.10.13 on Linux downloaded from PyPI.
+   This is due to a bug in ``patchelf-0.17`` which broke Egg-Trans tool actively used inside Panda Utils. You can
    check whether your version of Panda is compatible by running ``egg-trans`` from the command line.
    If it outputs a help notice, it probably works, 1.10.13 causes segmentation faults and will not work.
 
@@ -85,6 +60,9 @@ Panda Utils also includes a number of optional dependencies:
   asset pipeline. Note that this is a big installation (~300 MB), but it is required as Blender will
   not run in a venv without numpy, and certain model operations require Panda3D. If downscale is
   used in the workflow, imagery dependency is needed separately.
+* ``composer`` downloads all of the Pipeline dependencies as well as Pydantic and PyDoit.
+  This allows using ``composer``, a customized "Makefile generator"
+  (it does not actually use makefiles for better Windows support) designed specifically for the asset pipeline.
 * ``everything`` can be used to install all of the dependencies above.
 
 All of these dependencies can be installed through Pip, for example:

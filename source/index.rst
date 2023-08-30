@@ -47,6 +47,7 @@ It also includes an implementation of Egg Syntax Tree, which can be used program
    asset-pipeline/model-optimization
    asset-pipeline/scripting
    asset-pipeline/misc
+   asset-pipeline/composer
 
 
 Indices and tables

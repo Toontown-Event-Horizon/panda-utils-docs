@@ -5,8 +5,30 @@ Breaking changes are displayed with the 💥 collision symbol.
 
 Versions were not saved before 1.0, so those are not in the changelog.
 
+1.5.2
+-----
+
+Pipeline
+~~~~~~~~
+
+* Fixed conversion errors for models with relative paths on Windows - Wizzerinus (1.5.2b1)
+
+1.5.1
+-----
+
+Composer
+~~~~~~~~
+
+* Inserting steps after or before steps such as `egg2bam` no longer results in a parse error - Wizzerinus
+* ``egg2bam``, ``preexport``, and ``optchar`` steps now can be configured from the targets file - Wizzerinus
+
 1.5
 ---
+
+Core
+~~~~
+
+* Introduced a new Composer tool - Wizzerinus (1.5)
 
 Asset Pipeline
 ~~~~~~~~~~~~~~
@@ -16,6 +38,12 @@ Asset Pipeline
 * 💥 The Optchar step will now export only the model whose name matches the name of the folder - Wizzerinus (1.5b2)
 * Fixed Transparency step breaking already transparent textures - Wizzerinus (1.5b3)
 * Fixed Palettize step deleting textures that did not fit the palette - Wizzerinus (1.5b3)
+* 💥 Asset Pipeline now accepts ``model_output`` and ``texture_output`` as the commandline parameters instead of ``output_phase`` and ``output_folder`` - Wizzerinus (1.5)
+* Pipeline can now use ``{}`` for parameters - Wizzerinus (1.5)
+* YABEE now works on blend files that were saved outside of object mode - Wizzerinus (1.5)
+* Added ``delete_vertex_colors`` step - Wizzerinus (1.5)
+* Fixed Palettize step removing texture looping - Wizzerinus (1.5)
+* Asset Pipeline will delete all textures when rebuilding a model - Wizzerinus (1.5)
 
 Egg Tree
 ~~~~~~~~

@@ -68,7 +68,8 @@ Some notes about this structure:
   inside of it (with all relevant textures). The FBX import step will join all FBX and OBJ files together
   into one model. In addition, putting multiple assets in one folder reduces the caching amount possible.
 * The Blend2Bam step is especially fragile and will cease to work if the textures are not in the same folder
-  with the model. It is a workaround for a Panda3D limitation. This step is required for 3D workflows,
+  with the model. It is a workaround for a Panda3D limitation. This step is required for 3D workflows
+  (unless YABEE is used instead, which is slightly less fragile),
   so the textures have to be in the same folder with the model.
 * The intermediate folder starts empty. It will be changed over time as models are compiled. It can be
   safely deleted with no consequences except you won't be able to debug a certain compilation step.
@@ -86,20 +87,35 @@ The pipeline for a model can be launched through a command like this:
 
 .. code-block:: console
 
-   (.venv) $ python -m panda_utils.assetpipeline path/to/input_folder {phase_X} {category} [step1] [step2] [...]
+   (.venv) $ python -m panda_utils.assetpipeline path/to/input_folder {models-folder} {texture-folder} [step1] [step2] [...]
 
 Each step is a string containing the step name, followed by zero or more arguments separated by colons.
-Alternatively, the step can use a special string ``[]`` instead of the arguments, which means
-its arguments will be taken from model configuration. Here are some examples of steps:
+Alternatively, the step can use a special string ``[]`` or a special string ``{}`` instead of the arguments.
+Both of these strings mean the command's arguments will be taken from model configuration.
+The difference is how these handle commands without set configuration:
+``[]`` will not run the command at all, and ``{}`` will run the command with no parameters.
+Here are some examples of steps:
 
 .. code-block::
 
    blend2bam
    downscale:256:10
    collide[]
+   yabee{}
 
 Here, ``blend2bam`` will be called without arguments, ``downscale`` will be called with arguments ``256`` and ``10``,
-and ``collide`` will be called with arguments derived from the model configuration.
+and ``collide`` and ``yabee`` will be called with arguments derived from the model configuration.
+``collide`` will not run if the parameters are not configured in model config, ``yabee`` will run with no parameters.
+
+``models-folder`` and ``texture-folder`` are the folder names which are used as paths inside the built folder.
+There are multiple standard options how to set these folders:
+
+* The way used by Disney's MMOs sets ``models-folder`` to ``phase_X/models/category_name``
+  and ``texture-folder`` to ``phase_X/maps``.
+* A modern way which sets both of these folders to ``feature_name`` or ``feature_category/feature_name``.
+
+The Pipeline sets no limitations on these folder names, and you can use any way you want, but I recommend
+choosing one of the ways above or something else intuitive and sticking to it for the entire project.
 
 The steps are called in order they appear on the command line, for example:
 
@@ -110,7 +126,7 @@ The steps are called in order they appear on the command line, for example:
 This command will first run the ``blend2bam`` step with no arguments,
 followed by ``bam2egg`` with no arguments,
 followed by ``collide`` deriving the arguments from the model configuration,
-finally followed by ``egg2bam``.
+finally followed by ``egg2bam`` with no arguments.
 
 Some steps include the ``flags`` parameter. This parameter includes zero or more flags, separated by commas.
 It can also be set as a list if using model configuration.
@@ -141,9 +157,10 @@ This file is supposed to map to a Python dictionary, and the values can be one o
      - kw1: value3
        kw2: value4
 
-Whenever a ``step_name[]`` step is encountered, it is processed as follows:
+Whenever a ``step_name[]`` step or a ``step_name{}`` step is encountered, it is processed as follows:
 
-* If ``step_name`` is not in the config file, this step does not run at all.
+* If ``step_name`` is not in the config file, this step does not run at all (if it's defined as ``step_name[]``)
+  or is run without any arguments (if it's defined as ``step_name{}``).
 * If ``step_name`` is provided as a string, it is used as the only argument to the step.
   For example, ``step_name1[]`` with the file above is equivalent to ``step_name1:argument_name``.
 * If the step configuration is a list (like ``step_name2`` and ``step_name4`` above), it will run multiple times,
