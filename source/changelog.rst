@@ -12,6 +12,15 @@ Pipeline
 ~~~~~~~~
 
 * Fixed conversion errors for models with relative paths on Windows - Wizzerinus (1.5.2b1)
+* Optimize step now deletes UV names from models - Wizzerinus
+* Added uv scroll step - Wizzerinus
+* Added uncache step for debugging - Wizzerinus
+* Optimize step will properly ignore palettes when counting the textures and renaming them - Wizzerinus
+
+Composer
+~~~~~~~~
+
+* Import method can now be overridden on a per-model basis (on addition to the per-group basis) - Wizzerinus
 
 1.5.1
 -----

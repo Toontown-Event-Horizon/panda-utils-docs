@@ -167,6 +167,11 @@ This can be used when the vertex colors are exported incorrectly from Blender.
 A common case is the model being invisible, but having wireframe while loaded in PView
 (wireframe can be toggled by pressing ``w``).
 
+.. note:: gltf-based pipelines (including blend2bam) do not properly handle vertex colors.
+   Everything without vertex colors is considered having a color of (0, 0, 0, 0) instead of (1, 1, 1, 1) in Blender,
+   making the vertex transparent by default if any vertex colors are applied to the model at all.
+   Our version of YABEE fixes this issue if used to export models.
+
 Arguments
 ~~~~~~~~~
 
@@ -176,3 +181,29 @@ Examples
 ~~~~~~~~
 
 * ``delete_vertex_colors``
+
+UV Scroll
+---------
+
+This step adds UV scrolling effect to a part of the model.
+
+.. note:: If palettize is used, the scrolled texture should be excluded from the palette.
+   This is because the scroll applies to the image as a whole, instead of a part of it.
+
+Arguments
+~~~~~~~~~
+
+This step takes up to three arguments:
+
+* ``group_name``: the group name the scroll should be applied to. Required.
+* ``speed_u``: horizontal scroll speed. Floating-point number or a string representing one. 0 by default.
+* ``speed_v``: vertical scroll speed. Floating-point number or a string representing one. 0 by default.
+
+At least one of ``speed_u`` and ``speed_v`` must be nonzero.
+
+Examples
+~~~~~~~~
+
+* ``uvscroll:my_group:0.1``
+* ``uvscroll:my_group:0:0.1``
+* ``uvscroll[]``

@@ -159,6 +159,7 @@ regardless of whether the extra steps are present:
 * ``transform``
 * ``group_rename``
 * ``group_remove``
+* ``uvscroll``
 
 Overrides
 ---------
@@ -166,12 +167,13 @@ Overrides
 Overrides can include extra steps or parameters.
 Note that they fully override all parameter and extra step overrides on the folder level.
 So if you want to reuse the extra steps while adding more, you will have to copy the initial ones too.
-``callback_type`` and ``active`` can also be overridden here. Exporters like ``yabee`` cannot be at the time.
+``callback_type``, ``import_method`` and ``active`` can also be overridden here.
 
 .. code-block:: yaml
 
    overrides:
      some-model:
+       import_method: yabee
        parameters:
          downscale: '1024'
        extra_steps:

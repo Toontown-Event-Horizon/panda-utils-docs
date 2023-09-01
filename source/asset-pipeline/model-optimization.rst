@@ -14,6 +14,8 @@ This step will do the following transformations to every EGG model it finds:
   they will be renamed into ``input_folder.png``, ``input_folder-1.jpg`` and ``input_folder-2.png``
   (the order is not guaranteed, but it will be consistent if this step is launched on multiple machines).
   It will not rename textures made from palettes (including palettize step and egg-palettize).
+* Deletes UV names from all vertices and from all textures. As far as I know those do literally nothing
+  except causing issues.
 
 (more to come)
 

@@ -27,3 +27,19 @@ Examples
 ~~~~~~~~
 
 * ``cts:all_coins``
+
+Uncache Eggs
+------------
+
+This step dumps the current content of egg files after all transformations back into the file system.
+Note that this is usually not needed except if a certain step operating on eggs needs to be debugged.
+
+Arguments
+~~~~~~~~~
+
+This step accepts no arguments.
+
+Examples
+~~~~~~~~
+
+* ``uncache``
