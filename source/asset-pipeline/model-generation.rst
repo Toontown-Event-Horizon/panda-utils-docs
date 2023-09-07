@@ -22,11 +22,18 @@ This step accepts up to four arguments.
   with ``bbox%`` padding around the bounding box.
   For example, setting ``bbox=10`` will use 10/12th of each dimension for the source image,
   and 1/12th of each dimension on each side for the padding.
+  To skip this parameter (if using the string notation), use -1 (*not* empty string).
+  If this parameter is 0 or greater ``force`` flag will be implied.
 * The third parameter ``flags`` is optional. It defaults to no flags. The options are:
 
-  * ``truecenter``: By default, textures with big width and small height will be pinned to the bottom of the image.
+  * ``force``: By default, only square textures will be resized. This flag enables rescaling of rectangular textures.
+    Note that this flag has no effect on square textures with the size smaller than the target size,
+    which will not be rescaled in either case.
+  * ``truecenter``: By default, if force mode is used,
+    textures with big width and small height will be pinned to the bottom of the image.
     Setting this flag will instead center those textures in the image.
     This flag does not affect the textures with small width and big height, which will always be centered.
+    Enabling this flag implies ``force``.
 * The fourth argument ``name`` is optional, and defaults to an empty string.
   If name is empty, all textures will be resized.
   If name is not empty, only the texture matching the given name will be resized.
@@ -37,7 +44,7 @@ Examples
 
 * ``downscale:256``
 * ``downscale:256:10``
-* ``downscale:256::truecenter:background-*.png``
+* ``downscale:256:-1:truecenter:background-*.png``
 * ``downscale[]``
 
 

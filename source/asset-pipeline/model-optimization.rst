@@ -42,12 +42,14 @@ Note that changing the dart type is currently not supported.
 Arguments
 ~~~~~~~~~
 
-This step takes two parameters.
-Both of them can be comma-separated strings, or lists of strings (only if model configuration is used).
-TODO: document what these parameters do, I'm not very familiar with ``egg-optchar``.
+This step takes up to three parameters.
+Each of them can be comma-separated strings, or lists of strings (only if model configuration is used).
 
-* ``flags``: the list of all flagged nodes.
-* ``expose``: the list of all exposed joints.
+* ``flags``: the list of all flagged nodes. Default empty.
+* ``expose``: the list of all exposed joints. Default empty.
+* ``zero``: the list of nullified joints. Default empty.
+
+These parameters are documented in :doc:`../panda3d-help/optchar`.
 
 Example
 ~~~~~~~

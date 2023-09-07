@@ -49,6 +49,12 @@ It also includes an implementation of Egg Syntax Tree, which can be used program
    asset-pipeline/misc
    asset-pipeline/composer
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Misc. Panda3D snippets
+
+   panda3d-help/optchar
+
 
 Indices and tables
 ==================

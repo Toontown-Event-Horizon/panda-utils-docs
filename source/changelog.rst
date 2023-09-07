@@ -1,9 +1,28 @@
 Changelog
 =========
 
-Breaking changes are displayed with the 💥 collision symbol.
+Breaking changes are displayed with the 💥 collision symbol. Only changes that are likely to break the workflow
+of a user are considered breaking. The changes that affect the internal structure of the built/ folder and such
+(when using Asset Pipeline) are *not* considered breaking. Bugfixes are also not considered breaking
+unless I believe the bug had a legitimate usecase.
 
 Versions were not saved before 1.0, so those are not in the changelog.
+
+1.5.3
+-----
+
+Core
+~~~~
+
+* Downscale will no longer upscale small textures - Wizzerinus
+* Copy can copy single files again - Wizzerinus
+
+Pipeline
+~~~~~~~~
+
+* Added Zero argument to Optchar - Wizzerinus
+* Downscale will no longer upscale small textures - Wizzerinus
+* 💥 Downscale will no longer work in Force mode by default - Wizzerinus
 
 1.5.2
 -----
