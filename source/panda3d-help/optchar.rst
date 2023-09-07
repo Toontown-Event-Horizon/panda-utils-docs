@@ -80,7 +80,7 @@ to list all animations I can think of).
 
 Egg-optchar also allows partially nullifying a joint by letting it moving in only some axis
 (for example, forbidding p rotation but allowing h rotation, etc.) I don't currently know the usecases for this,
-but optchar step allows setting the nullified axis after a comma (see example below).
+but optchar step allows setting the nullified axis in brackets (see example below).
 
 Example model config
 ~~~~~~~~~~~~~~~~~~~~
@@ -90,4 +90,4 @@ Example model config
    optchar:
      zero:
        - root_joint
-       - constrained_joint,xypr
+       - constrained_joint[xypr]
