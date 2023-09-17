@@ -40,6 +40,8 @@ Composer is configured through a YAML file ``targets.yml`` located in the projec
    ├─ ...
    scripts/
    ├─ ...
+   bscripts/
+   ├─ ...
    targets.yml
 
 Unlike Asset Pipeline, Composer enforces the structure of the input/ folder.
@@ -186,3 +188,29 @@ So if you want to reuse the extra steps while adding more, you will have to copy
        active: false
      some-palette:
        callback_type: 2d-palette
+
+Production Steps
+----------------
+
+Certain steps like image compression might not be needed for local development and long/hard to do,
+while being important for production builds.
+In the same way, steps like making all collisions visible can be useful for local development,
+but not at all useful for production.
+Composer allows marking extra steps as being marked for production or for development,
+which can be controlled with ``PANDA_UTILS_PRODUCTION`` environmental variable.
+Setting this variable to any non-empty value will enable all production steps and disable all development steps.
+
+By default, most steps (including all steps in presets) will run regardless of this variable.
+
+.. code-block:: yaml
+
+   overrides:
+     some-model:
+       extra_steps:
+         script:
+           - parameters: 'compressAllImages'
+             before: egg2bam
+             production: true
+           - parameters: 'showAllCollisions'
+             before: egg2bam
+             production: false

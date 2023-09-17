@@ -8,14 +8,20 @@ This step will do the following transformations to every EGG model it finds:
 
 * Removes the default cube ``Cube.N`` and camera ``Camera`` groups from the file if they're found inside.
   It normally does not affect meshes based on a cube but ones that are not cubes.
-  If it did for you, file a bug report.
+  Unless you never rename your meshes and keep the default names, in which case please rename your meshes.
 * Renames all textures to follow a consistent naming pattern.
   For example, if textures ``file1.png``, ``Randomfile.jpg`` and ``otherFile.png`` are provided,
   they will be renamed into ``input_folder.png``, ``input_folder-1.jpg`` and ``input_folder-2.png``
   (the order is not guaranteed, but it will be consistent if this step is launched on multiple machines).
   It will not rename textures made from palettes (including palettize step and egg-palettize).
-* Deletes UV names from all vertices and from all textures. As far as I know those do literally nothing
-  except causing issues.
+  This can be disabled by not providing the ``keep_texture_names`` flag.
+* Deletes UV names from all vertices and from all textures.
+  As far as I know those do literally nothing except causing issues.
+  This can be disabled by providing the ``keep_uv_names`` flag.
+* Replaces transparent vertex color ``0 0 0 0`` with a fully white vertex color ``1 1 1 1``.
+  For some reason, Blender has transparent as the default, even though vertex colors multiply with texture colors.
+  This can be disabled by providing the ``keep_transparent_vertices`` flag.
+  This should work with both YABEE-based imports as well as GLTF- and blend2bam-based imports.
 
 (more to come)
 
@@ -24,14 +30,17 @@ Arguments
 
 This step takes up to one argument.
 
-* ``map_textures``: default true. If this is set to ``0``, ``false`` or empty string,
-  textures will not be renamed, in case the model already has a naming pattern set.
+* ``flags``: default empty. Either a comma-separated string or a list. The options are:
+  * ``keep_texture_names``: If this is present, textures will not be renamed.
+    Can be used in case the model already has a naming convention used to load external textures.
+  * ``keep_uv_names``: If this is present, UV names will be kept. I don't know why you need this.
+  * ``keep_transparent_vertices``: If this is present, transparent vertices will be kept. If you use mb2egg idk.
 
 Example
 ~~~~~~~
 
 * ``optimize``
-* ``optimize:0``
+* ``optimize:keep_texture_names,keep_transparent_vertices``
 
 Optchar
 -------

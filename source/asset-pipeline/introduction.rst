@@ -56,6 +56,9 @@ The asset pipeline expects your workspace folder to have the following directory
    scripts/
    ├─ magic1.py
    ├─ ...
+   bscripts/
+   ├─ magic2.py
+   ├─ ...
 
 Some notes about this structure:
 
@@ -77,7 +80,8 @@ Some notes about this structure:
 * The built folder starts empty and will be populated with models and textures. It can be usually copied
   into the game assets folder directly. It can be deleted, forcing the models to be recompiled.
   We recommend gitignoring it and/or adding a submodule in the same place.
-* The scripts folder is optional. It is used here: :doc:`scripting`
+* The scripts folder is optional. It is used here: :doc:`scripting` for normal scripts
+* The bscripts folder is optional. It is used here: :doc:`scripting` for scripts intended to be run in Blender
 * The common folder is optional. It is used here: :doc:`misc`
 
 Running asset pipeline
@@ -185,7 +189,14 @@ The steps documentation includes the names of keyword arguments to enable this b
 Logging
 -------
 
-Normally the pipeline does not log anything. Logging can be enabled by setting one or both environmental variables:
+Normally the pipeline does not log anything. Logging can be enabled by setting one or more environmental variables:
 
-* ``PANDA_UTILS_LOGGING`` for most logs
-* ``PANDA_UTILS_BLENDER_LOGGING`` for blender-related operations.
+* ``PANDA_UTILS_LOGGING`` for most logs;
+* ``PANDA_UTILS_BLENDER_LOGGING`` for blender-related operations;
+* ``PANDA_UTILS_P3D_DEBUG`` for Panda3D binaries such as egg-optchar.
+
+Any non-empty value will enable logging.
+
+Logging can be also enabled with the ``pipeline``, ``blender``, and ``p3d`` logging scopes, respectively.
+For example, setting the environmental variable ``PANDA_UTILS_DEBUG=pipeline,p3d``
+will enable logging for the pipeline itself and Panda3D binaries. Setting the scope to ``all`` enables all scopes.

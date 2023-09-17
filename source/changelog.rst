@@ -8,6 +8,54 @@ unless I believe the bug had a legitimate usecase.
 
 Versions were not saved before 1.0, so those are not in the changelog.
 
+1.6
+---
+
+During the development of this version,
+I've found the changes in 1.5.4 to Egg2bam pipeline step were bugged and worked in the inverted way.
+The Egg2bam change in this version is breaking from 1.5.4, but is not breaking from 1.5.3 and below.
+The bugged version is yanked on PyPI due to the importance of egg2bam step.
+
+Note that at the time of writing (1.6b1), many of these changes are not tested.
+
+Core
+~~~~
+
+* Panda3D callbacks can now be debugged - Wizzerinus
+* Streamlined debugging environmental variables - Wizzerinus
+
+Pipeline
+~~~~~~~~
+
+* YABEE will now patch the texture paths before exporting the model - Wizzerinus
+* Egg2bam now uses ``filter`` flag instead of ``alltex`` - Wizzerinus
+* 💥 Optimize step now uses flags - Wizzerinus
+* Optimize step will now replace transparent vertex coloring with white - Wizzerinus
+  * This is a workaround for a weird behavior in Blender. It is already included in our version of YABEE,
+    and is now available for the use in other workflows (i.e. Blend2bam).
+  * Due to being experimental, this can be disabled by passing the ``keep_transparent_vertices`` flag.
+* Script step can now accept parameters - Wizzerinus
+* Added blender-script step - Wizzerinus
+
+Composer
+~~~~~~~~
+
+* Actor exporter will default to loading optchar settings from the model config file - Wizzerinus
+
+1.5.4
+-----
+
+Pipeline
+~~~~~~~~
+
+* Egg2bam step now uses flags instead of a boolean value - Wizzerinus
+* Palettize step can have exclusions configured with a fnmatch pattern now - Wizzerinus
+
+Composer
+~~~~~~~~
+
+* Extra steps can require production or development mode now - Wizzerinus
+
 1.5.3
 -----
 
@@ -47,7 +95,7 @@ Composer
 Composer
 ~~~~~~~~
 
-* Inserting steps after or before steps such as `egg2bam` no longer results in a parse error - Wizzerinus
+* Inserting steps after or before steps such as ``egg2bam`` no longer results in a parse error - Wizzerinus
 * ``egg2bam``, ``preexport``, and ``optchar`` steps now can be configured from the targets file - Wizzerinus
 
 1.5

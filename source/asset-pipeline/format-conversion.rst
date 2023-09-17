@@ -165,12 +165,12 @@ Arguments
 
 This step takes up to one argument:
 
-* ``all_textures``: default false. If it is set to non-false value (false values are false, 0, and empty string),
-  all textures in the folder (with the exception of cts-injected ones) will be copied into ``built``, by default
-  only the textures referenced in the egg file are copied.
+* ``flags``: default ``filter``. Either a string separated by commas or an array.
+  * ``filter``: If it is included, only the textures referenced in the egg file are copied (which is the default).
+    If it is excluded, all textures will be copied.
 
 Examples
 ~~~~~~~~
 
 * ``egg2bam``
-* ``egg2bam:1``
+* ``egg2bam:``
