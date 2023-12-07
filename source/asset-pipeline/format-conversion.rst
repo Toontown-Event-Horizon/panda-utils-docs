@@ -10,8 +10,8 @@ The general step sequence that imports a 3D model should look like this:
 
 * ``preexport`` - either ``preblend`` (if the model is made in a software other than blender)
   or ``blendrename`` (if the model is made in Blender). ``blendrename`` may be omitted, but it's not recommended.
-* ``export`` - either ``blend2bam bam2egg`` or ``yabee``. Since YABEE is not supported by the Panda3D devs,
-  it is not recommended, but still can be used in case the model is a character and is not recognized by Blend2bam.
+* ``export`` - either ``blend2bam bam2egg`` or ``yabee``. YABEE is not supported by the Panda3D devs,
+  but we still offer some amount of support. YABEE is also required to export animations (as of this time).
 
 Any step sequence that outputs a game model (3D or 2D) should end with ``egg2bam`` since that is
 the step that copies assets into the built folder as well.
@@ -42,7 +42,7 @@ So there are four main options.
   and writes out Egg polygons, ignoring the Panda3D's vision of this model. Because of that, YABEE
   can fix various issues that happen when exporting actors not parented to their armature.
   YABEE is also useful when exporting animations, as it allows splitting multiple animations in
-  one Blend file, however animation exporting is not currently implemented.
+  one Blend file.
 * Boterham and exporting GLTF models (bypassing Blend files) are currently not supported.
 
 Note that the recent versions of Blender do not support the old versions of YABEE.

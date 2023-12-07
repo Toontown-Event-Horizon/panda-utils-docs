@@ -44,8 +44,27 @@ Composer is configured through a YAML file ``targets.yml`` located in the projec
    ├─ ...
    targets.yml
 
-Unlike Asset Pipeline, Composer enforces the structure of the input/ folder.
-When configured, Composer can be launched through ``python -m panda_utils.assetpipeline.composer``.
+Composer will find assets in the ``input`` folder. By default, each folder without any subfolders
+will be considered one asset, and Composer will run the asset pipeline once for that folder.
+If this is undesired (i.e. you want to keep textures in a subfolder) you can put ``model-config.yml`` file
+in the parent folder for the entire asset:
+
+.. code-block::
+
+   input/
+   ├─ asset-folder/
+   │  ├─ other-folder/
+   │  │  ├─ model.blend
+   │  │  ├─ model-config.yml
+   │  |  ├─ textures/
+   │  │  |  ├─ texture2.png
+
+In this configuration, ``other-folder`` is considered one asset, despite having a subfolder.
+The ``model-config.yml`` can be empty, but often will be used for the pipeline configuration.
+
+Unlike Asset Pipeline, Composer enforces the structure of the ``input/`` folder.
+When configured, Composer can be launched through ``python -m panda_utils.assetpipeline.composer``
+in the folder with ``targets.yml`` or any of its subfolders.
 This script accepts the same parameters `PyDoit <https://pydoit.org/cmd-run.html>`_ does.
 
 Configuration example
@@ -84,6 +103,15 @@ The example below describes all configuration parameters that can be used by com
      # Note that it is considered an error if a folder is present but a target is not
      # Make a target with active: false if certain folder should not be built
      asset-folder2: ...
+
+The currently possible callback types include:
+
+* ``2d-palette``, which will build a 2D palette out of a set of 2D textures (i.e. icons).
+  The steps included by default: ``downscale(disabled), texture_cards, palettize(1024), egg2bam``
+* ``standard``, which will build a 3D model, and all build tools (YABEE, blend2bam, gltf2bam) are supported.
+* ``actor``, which is mostly the same as ``standard``, except it enforces the use of YABEE
+  (as we found it works better than gltf2bam for certain actors) and inserts an ``optchar`` step.
+  If this is not desired, you can use ``standard`` and add optchar manually.
 
 Parameters
 ----------

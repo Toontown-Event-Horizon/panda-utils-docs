@@ -4,5 +4,5 @@
 project = 'Panda Utils'
 copyright = '2023, The Mission Control'
 author = 'The Mission Control'
-release = '1.4'
+release = '1.6'
 html_theme = 'sphinx_rtd_theme'

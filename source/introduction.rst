@@ -19,11 +19,12 @@ Panda Utils is fairly opinionated, based on our experience with the Toontown sou
   It is commonly referred as the "workspace folder" and determined by checking the cwd
   (current working directory).
 * We do not join palettes of multiple different models together. Doing so may reduce the project size
-  in some cases.
+  and/or increase game performance in some cases. You may still emable this yourself if you want to,
+  using i.e. production-only custom script step.
 * We usually use semi-absolute texture paths (i.e. ``phase_1/maps/asset-name.png``) instead of model-relative
   (i.e. ``../../maps/asset-name.png``). This requires proper Panda3D configurtion and also does not allow copying
-  models around between phases.
-
+  models around between phases. Panda Utils also supports relative paths if the model and the texture are in the
+  same folder, i.e. ``asset-name.png`` or ``textures/asset-name.png``, and will use them automatically if possible.
 
 .. warning:: The Egg syntax tree module does not guarantee the validity of the Egg file after any operation.
    The model is guaranteed to be syntactically correct, but may be semantically incorrect.
@@ -31,13 +32,18 @@ Panda Utils is fairly opinionated, based on our experience with the Toontown sou
    into a group with non-polygon objects under it.
    It also may reject valid egg files built with a non-standard generator
    (generators like bam2egg or panda-utils itself are safe).
+   The latter limitation will be remedied with Panda Utils 2.0.
 
-Panda Utils requires at least Python 3.8 and a reasonably contemporary version of Panda3D.
+Panda Utils requires at least Python 3.9 and a reasonably contemporary version of Panda3D.
 
-.. warning:: Panda Utils is not compatible with Panda3D 1.10.13 on Linux downloaded from PyPI.
+.. warning:: Panda Utils is not compatible with ``panda3d==1.10.13`` or ``1.10.13next1`` on Linux downloaded from PyPI.
    This is due to a bug in ``patchelf-0.17`` which broke Egg-Trans tool actively used inside Panda Utils. You can
    check whether your version of Panda is compatible by running ``egg-trans`` from the command line.
    If it outputs a help notice, it probably works, 1.10.13 causes segmentation faults and will not work.
+
+.. warning:: Using ``panda3d-gltf>=0.16.0`` may fail due to an upstream bug (wrong import path).
+   Older versions of ``panda3d-gltf`` do not support exporting files with spaces in their path,
+   so you should avoid making paths with spaces.
 
 .. note:: The support for Windows machines is currently a Work-in-progress and not guaranteed to work.
    We're working on improving it over time.

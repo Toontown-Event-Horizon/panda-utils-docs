@@ -3,8 +3,8 @@ Asset Pipeline
 
 Panda Utils includes a full-fledged Asset Pipeline that can be used to import Blend and/or FBX models into the game,
 applying various processing stages to the model. It is also Makefile-ready, which means if attached to a Makefile,
-changing a few assets only causes those assets to be rebuilt. (There is currently no publicly accessible Makefile
-generator tailored to use with this pipeline.)
+changing a few assets only causes those assets to be rebuilt. There is currently no makefile generator
+tailored to be used with the Pipeline, however :doc:`composer` can be used for the same purpose.
 
 Preliminaries
 -------------
@@ -70,10 +70,19 @@ Some notes about this structure:
   It can have any number of levels of nesting, but it is strongly recommended that each folder has only one asset
   inside of it (with all relevant textures). The FBX import step will join all FBX and OBJ files together
   into one model. In addition, putting multiple assets in one folder reduces the caching amount possible.
-* The Blend2Bam step is especially fragile and will cease to work if the textures are not in the same folder
-  with the model. It is a workaround for a Panda3D limitation. This step is required for 3D workflows
-  (unless YABEE is used instead, which is slightly less fragile),
-  so the textures have to be in the same folder with the model.
+  For example, this is also a valid structure, albeit I don't recommend it:
+
+.. code-block::
+
+   my-asset/
+   ├─ model.blend
+   ├─ texture.png
+   my-asset2/
+   ├─ model2.blend
+   ├─ texture2.png
+   intermediate/
+   built/
+
 * The intermediate folder starts empty. It will be changed over time as models are compiled. It can be
   safely deleted with no consequences except you won't be able to debug a certain compilation step.
   We recommend gitignoring this folder.
@@ -95,7 +104,7 @@ The pipeline for a model can be launched through a command like this:
 
 Each step is a string containing the step name, followed by zero or more arguments separated by colons.
 Alternatively, the step can use a special string ``[]`` or a special string ``{}`` instead of the arguments.
-Both of these strings mean the command's arguments will be taken from model configuration.
+Both of these strings mean the command's arguments will be taken from model configuration (see below).
 The difference is how these handle commands without set configuration:
 ``[]`` will not run the command at all, and ``{}`` will run the command with no parameters.
 Here are some examples of steps:
@@ -120,16 +129,18 @@ There are multiple standard options how to set these folders:
 
 The Pipeline sets no limitations on these folder names, and you can use any way you want, but I recommend
 choosing one of the ways above or something else intuitive and sticking to it for the entire project.
+Note that anything that's not the Disney's way is only fully supported since version 1.6b3
+(which is currently under development) and will give cryptic errors if used.
 
 The steps are called in order they appear on the command line, for example:
 
 .. code-block:: console
 
-   (.venv) $ python -m panda_utils.assetpipeline input_folder phase_1 char blend2bam bam2egg collide[] egg2bam
+   (.venv) $ python -m panda_utils.assetpipeline input/ phase_1/models/char phase_1/maps blend2bam bam2egg collide[] egg2bam
 
 This command will first run the ``blend2bam`` step with no arguments,
 followed by ``bam2egg`` with no arguments,
-followed by ``collide`` deriving the arguments from the model configuration,
+followed by ``collide`` deriving the arguments from the model configuration (see below),
 finally followed by ``egg2bam`` with no arguments.
 
 Some steps include the ``flags`` parameter. This parameter includes zero or more flags, separated by commas.

@@ -16,8 +16,11 @@ This step will do the following transformations to every EGG model it finds:
   It will not rename textures made from palettes (including palettize step and egg-palettize).
   This can be disabled by not providing the ``keep_texture_names`` flag.
 * Deletes UV names from all vertices and from all textures.
-  As far as I know those do literally nothing except causing issues.
-  This can be disabled by providing the ``keep_uv_names`` flag.
+  If the model has UV names set, each texture is set up as its own TextureStage.
+  This increases the GPU load when loading the model, and prevents features like UV scroll from working.
+  After this operation is performed, all textures will be loaded in the default TextureStage.
+  Note that splitting texture stages is sometimes useful, for example, to transform UV maps programmatically.
+  Therefore, this behavior can be disabled by providing the ``keep_uv_names`` flag.
 * Replaces transparent vertex color ``0 0 0 0`` with a fully white vertex color ``1 1 1 1``.
   For some reason, Blender has transparent as the default, even though vertex colors multiply with texture colors.
   This can be disabled by providing the ``keep_transparent_vertices`` flag.
